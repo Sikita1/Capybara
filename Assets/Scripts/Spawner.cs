@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Spawner : ObjectPool
@@ -12,7 +10,7 @@ public class Spawner : ObjectPool
 
     [SerializeField] private Player _player;
 
-    [SerializeField] private EntryPoint _entry;
+    [SerializeField] private Controller _entry;
 
     private float _elapsedTime = 0;
 

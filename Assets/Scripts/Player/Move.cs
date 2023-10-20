@@ -10,7 +10,7 @@ public class Move : MonoBehaviour
     [SerializeField] private Transform _leftZone;
     [SerializeField] private Transform _rightZone;
 
-    [SerializeField] private EntryPoint _entry;
+    [SerializeField] private Controller _entry;
 
     private int _rotationDegree = 180;
 
@@ -24,9 +24,10 @@ public class Move : MonoBehaviour
 
             Turn(mousePosition);
 
-            _player.transform.position = Vector2.MoveTowards(_player.transform.position,
-                new Vector2(mousePosition.x, _player.transform.position.y),
+            _player.transform.position = Vector3.MoveTowards(_player.transform.position,
+                new Vector3(mousePosition.x, _player.transform.position.y, _player.transform.position.z),
                 _speed * Time.deltaTime);
+            
         }
     }
 
@@ -55,10 +56,4 @@ public class Move : MonoBehaviour
         _player.transform.rotation = Quaternion.Euler(0, degrees, 0);
         _player.Run();
     }
-
-    //private void TurnRight()
-    //{
-    //    _player.transform.rotation = Quaternion.Euler(0, 0, 0);
-    //    _player.Run();
-    //}
 }

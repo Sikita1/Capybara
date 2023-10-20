@@ -7,18 +7,13 @@ public class Buttons : MonoBehaviour
 {
     private Animator _animator;
 
-    private void Start()
+    private void Awake()
     {
         _animator = GetComponent<Animator>();
     }
 
-    public void OnIdle()
-    {
-        _animator.SetTrigger("Idle");
-    }
-
-    public void OnStartOff()
-    {
-        _animator.SetTrigger("StartOff");
-    }
+    public void OnStartOn() => _animator.SetTrigger("StartOn");
+    public void OnIdle() => _animator.SetTrigger("Idle");
+    public void OnStartOff() => _animator.SetTrigger("StartOff");
+    public void OnHidden() => _animator.SetTrigger("Hidden");
 }
