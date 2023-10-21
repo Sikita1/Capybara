@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Events;
 
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
@@ -6,6 +7,9 @@ public class Player : MonoBehaviour
     [SerializeField] private CatWin _cat;
 
     [SerializeField] private Buttons _buttonMenu;
+
+    public event UnityAction StateAlive;
+    public event UnityAction StateDead;
 
     private Animator _animation;
     private float _positionRelax = -2.18f;
@@ -19,16 +23,24 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        Alive();
+        //Alive();
         _cat.gameObject.SetActive(false);
     }
 
-    public void Alive() => Lose = false;
-    public void Dead() => Lose = true;
+    public void Alive()
+    {
+        Lose = false;
+        StateAlive?.Invoke();
+    }
+    public void Dead()
+    {
+        Lose = true;
+        StateDead?.Invoke();
+    }
 
     public void PlayerReady()
     {
-        _animation.SetBool("Idle", true);
+        PlayerWaiting();
         Alive();
     }
 
@@ -45,6 +57,9 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(_positionRelax,
                                          transform.position.y,
                                          transform.position.z);
+        transform.rotation = Quaternion.Euler(transform.rotation.x,
+                                              0,
+                                              transform.rotation.z);
     }
 
     public void Defeated()
@@ -56,7 +71,7 @@ public class Player : MonoBehaviour
 
     public void Run()
     {
-        _animation.SetBool("Idle", false);
+        PlayerWaiting();
         _animation.SetBool("Run", true);
     }
 
@@ -69,8 +84,8 @@ public class Player : MonoBehaviour
     private void Dance()
     {
         DanceCat();
+        PlayerWaiting();
         _animation.SetBool("Dance", true);
-        _animation.SetBool("Idle", false);
     }
 
     private void DanceCat()

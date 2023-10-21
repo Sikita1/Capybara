@@ -26,8 +26,14 @@ public class ObjectPool : MonoBehaviour
                                   Where(enemy => enemy.gameObject.activeSelf == false).
                                   ToList();
 
+        if (gameObjects.Count == 0)
+        {
+            result = null;
+            return false;
+        }
+
         result = gameObjects[Random.Range(0, gameObjects.Count)];
 
-        return result != null;
+        return true;
     }
 }

@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class Move : MonoBehaviour
@@ -16,7 +14,7 @@ public class Move : MonoBehaviour
 
     private void OnMouseDrag()
     {
-        if (_entry.IsGame)
+        if (_entry.IsGame && _player.Lose == false)
         {
             Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
 
@@ -27,7 +25,6 @@ public class Move : MonoBehaviour
             _player.transform.position = Vector3.MoveTowards(_player.transform.position,
                 new Vector3(mousePosition.x, _player.transform.position.y, _player.transform.position.z),
                 _speed * Time.deltaTime);
-            
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using UnityEngine.Events;
 
 public class Timer : MonoBehaviour
 {
@@ -7,6 +8,8 @@ public class Timer : MonoBehaviour
     [SerializeField] private Player _player;
 
     [SerializeField] private Controller _entry;
+
+    public event UnityAction<int> StopScore;
 
     private float _time;
 
@@ -21,10 +24,14 @@ public class Timer : MonoBehaviour
         {
             if (_player.Lose == false)
                 _time += Time.deltaTime;
+            else
+                StopScore?.Invoke(GetCurrentScore());
 
             _display.text = Mathf.Round(_time).ToString();
         }
     }
+
+    public int GetCurrentScore() => (int)_time;
 
     public void ResetTime() => _time = 0;
 }

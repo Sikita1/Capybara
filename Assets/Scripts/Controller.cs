@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 
 public class Controller : MonoBehaviour
@@ -8,7 +9,12 @@ public class Controller : MonoBehaviour
     [SerializeField] private CameraFlight _camera;
     [SerializeField] private Timer _timer;
 
+    [SerializeField] private Score _score;
+
     [SerializeField] private Background _background;
+    [SerializeField] private ParticleSystem _particle;
+
+    [SerializeField] EnemyMover _enemyMover;
 
     public bool IsGame { get; private set; }
 
@@ -30,6 +36,7 @@ public class Controller : MonoBehaviour
         _background.GameChange();
         _player.PlayerReady();
         _camera.OnGamePl();
+        _particle.Stop();
     }
 
     public void OnButtonMenuClick()
@@ -42,5 +49,9 @@ public class Controller : MonoBehaviour
         _player.PlayerWaiting();
         _buttonStart.OnStartOn();
         _timer.ResetTime();
+        _score.ShowCurrentScore();
+        _particle.Play();
     }
+
+
 }
