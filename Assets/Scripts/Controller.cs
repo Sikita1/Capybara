@@ -14,8 +14,6 @@ public class Controller : MonoBehaviour
     [SerializeField] private Background _background;
     [SerializeField] private ParticleSystem _particle;
 
-    [SerializeField] EnemyMover _enemyMover;
-
     public bool IsGame { get; private set; }
 
     private void Start()
@@ -52,6 +50,4 @@ public class Controller : MonoBehaviour
         _score.ShowCurrentScore();
         _particle.Play();
     }
-
-
 }

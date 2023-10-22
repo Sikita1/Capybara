@@ -57,11 +57,11 @@ public class Spawner : ObjectPool
 
     private float Multiplier(float current, float target)
     {
-        if (current != target)
-            //float l = target - current;
-            current = (((target - current)* Time.deltaTime) / _timeIncrease);
-            //current = Mathf.MoveTowards(current, target, l);
+        float residualPath = target - current;
 
+        if (current != target)
+            current = (residualPath / _timeIncrease) * Time.deltaTime;
+        //current = Mathf.MoveTowards(current, target, l);
 
         return current;
     }
