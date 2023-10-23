@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using YG;
 
 public class Score : MonoBehaviour
 {
@@ -29,7 +30,7 @@ public class Score : MonoBehaviour
     public void ShowCurrentScore()
     {
         Load();
-        _textScore.text = $"Рекорд: {_maxScore.ToString()}";
+        _textScore.text = _maxScore.ToString();
     }
 
     private void OnMemorizeRecord(int maxScore)
@@ -38,6 +39,7 @@ public class Score : MonoBehaviour
         {
             _maxScore = maxScore;
             Save();
+            YandexGame.NewLeaderboardScores("BestCapybars", _maxScore);
         }
     }
 

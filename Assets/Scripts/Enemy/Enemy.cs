@@ -1,13 +1,13 @@
-using System.Collections;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))] 
-[RequireComponent(typeof(EnemyMover))] 
+[RequireComponent(typeof(AudioSource))]
+[RequireComponent(typeof(EnemyMover))]
 public class Enemy : MonoBehaviour
 {
     [SerializeField] private AudioClip[] _audio;
 
     [SerializeField] private Explode _bang;
+
     private EnemyMover _enemyMover;
     private AudioSource _randomAudio;
 
@@ -20,7 +20,9 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         _randomAudio.clip = GetRundomAudio();
-        _randomAudio.Play();
+
+        //if (_musicController.IsOnMusic)
+            _randomAudio.Play();
     }
 
     private void OnDisable()
@@ -30,7 +32,7 @@ public class Enemy : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.TryGetComponent(out Player player))
+        if (collision.TryGetComponent(out Player player))
         {
             player.Defeated();
         }
@@ -53,7 +55,7 @@ public class Enemy : MonoBehaviour
         _enemyMover.SetSpeedMultiplier(speedMultiplier);
     }
 
-    private void Die()
+    public void Die()
     {
         Instantiate(_bang, transform.position, Quaternion.identity);
         gameObject.SetActive(false);

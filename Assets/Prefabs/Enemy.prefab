@@ -134,6 +134,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 98d865aaaf1a3e141ab18e5657037aa1, type: 3}
   - {fileID: 8300000, guid: 230b527e2a5f7064eb479cce743bcc14, type: 3}
   _bang: {fileID: 4144672642607464680, guid: 01b99f6a11df0024c93e813ebbd3e9a5, type: 3}
+  _musicController: {fileID: 235737504981178297, guid: 50925dda020853b4d8a74b12beebfe26, type: 3}
 --- !u!114 &3579883064032416359
 MonoBehaviour:
   m_ObjectHideFlags: 0

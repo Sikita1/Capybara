@@ -23,8 +23,10 @@ public class Move : MonoBehaviour
             Turn(mousePosition);
 
             _player.transform.position = Vector3.MoveTowards(_player.transform.position,
-                new Vector3(mousePosition.x, _player.transform.position.y, _player.transform.position.z),
-                _speed * Time.deltaTime);
+                                                             new Vector3(mousePosition.x,
+                                                                         _player.transform.position.y,
+                                                                         _player.transform.position.z),
+                                                             _speed * Time.deltaTime);
         }
     }
 

@@ -1,6 +1,6 @@
-using System.Collections;
 using UnityEngine;
 
+[RequireComponent(typeof(AudioSource))]
 public class Controller : MonoBehaviour
 {
     [SerializeField] private Player _player;
@@ -14,7 +14,16 @@ public class Controller : MonoBehaviour
     [SerializeField] private Background _background;
     [SerializeField] private ParticleSystem _particle;
 
+    [SerializeField] private MusicController _musicController;
+
+    private AudioSource _audio;
+
     public bool IsGame { get; private set; }
+
+    private void Awake()
+    {
+        _audio = GetComponent<AudioSource>();
+    }
 
     private void Start()
     {
@@ -22,6 +31,19 @@ public class Controller : MonoBehaviour
         _background.OnMenu();
         StopGame();
         _buttonStart.OnStartOn();
+        AudioPlay();
+    }
+
+    private void OnEnable()
+    {
+        _musicController.SwitchOn += AudioPlay;
+        _musicController.SwitchOff += AudioStop;
+    }
+
+    private void OnDisable()
+    {
+        _musicController.SwitchOn -= AudioPlay;
+        _musicController.SwitchOff -= AudioStop;
     }
 
     public void StartGame() => IsGame = true;
@@ -35,6 +57,7 @@ public class Controller : MonoBehaviour
         _player.PlayerReady();
         _camera.OnGamePl();
         _particle.Stop();
+        AudioStop();
     }
 
     public void OnButtonMenuClick()
@@ -49,5 +72,15 @@ public class Controller : MonoBehaviour
         _timer.ResetTime();
         _score.ShowCurrentScore();
         _particle.Play();
+        AudioPlay();
     }
+
+    private void AudioPlay()
+    {
+        if (_musicController.IsOnMusic)
+            _audio.Play();
+    }
+
+    private void AudioStop() =>
+        _audio.Stop();
 }

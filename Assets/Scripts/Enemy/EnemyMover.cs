@@ -1,16 +1,14 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class EnemyMover : MonoBehaviour
 {
     [SerializeField] private float _speed;
 
-    [SerializeField] private float _speedMultiplier = 1f;
+    private float _speedMultiplier;
 
     private void Update()
     {
-        transform.Translate(Vector3.down * _speed * _speedMultiplier * Time.deltaTime);
+        transform.Translate(Vector3.down * _speedMultiplier * Time.deltaTime);
     }
 
     public void SetSpeedMultiplier(float speedMultiplier)

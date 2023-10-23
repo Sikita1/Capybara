@@ -8,6 +8,11 @@ public class Player : MonoBehaviour
 
     [SerializeField] private Buttons _buttonMenu;
 
+    [SerializeField] private AudioSource _audioWin;
+    [SerializeField] private AudioSource _audioGame;
+
+    [SerializeField] private MusicController _musicController;
+
     public event UnityAction StateAlive;
     public event UnityAction StateDead;
 
@@ -23,7 +28,6 @@ public class Player : MonoBehaviour
 
     private void Start()
     {
-        //Alive();
         _cat.gameObject.SetActive(false);
     }
 
@@ -36,12 +40,18 @@ public class Player : MonoBehaviour
     {
         Lose = true;
         StateDead?.Invoke();
+
+        Enemy[] deceased = GameObject.FindObjectsOfType<Enemy>();
+
+        for (int i = 0; i < deceased.Length; i++)
+            deceased[i].Die();
     }
 
     public void PlayerReady()
     {
-        PlayerWaiting();
         Alive();
+        Idle();
+        AudioPlay(_audioGame);
     }
 
     public void PlayerWaiting()
@@ -60,6 +70,7 @@ public class Player : MonoBehaviour
         transform.rotation = Quaternion.Euler(transform.rotation.x,
                                               0,
                                               transform.rotation.z);
+        AudioStop(_audioWin);
     }
 
     public void Defeated()
@@ -67,6 +78,7 @@ public class Player : MonoBehaviour
         Dead();
         Dance();
         _buttonMenu.OnStartOn();
+        AudioStop(_audioGame);
     }
 
     public void Run()
@@ -86,6 +98,7 @@ public class Player : MonoBehaviour
         DanceCat();
         PlayerWaiting();
         _animation.SetBool("Dance", true);
+        AudioPlay(_audioWin);
     }
 
     private void DanceCat()
@@ -103,4 +116,13 @@ public class Player : MonoBehaviour
 
         _cat.gameObject.SetActive(true);
     }
+
+    private void AudioPlay(AudioSource audio)
+    {
+        if(_musicController.IsOnMusic)
+        audio.Play();
+    }
+
+    private void AudioStop(AudioSource audio) =>
+        audio.Stop();
 }

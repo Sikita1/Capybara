@@ -1,4 +1,3 @@
-using System.Collections;
 using UnityEngine;
 
 public class Spawner : ObjectPool
@@ -13,27 +12,34 @@ public class Spawner : ObjectPool
     [SerializeField] private Controller _entry;
 
     [SerializeField] private float _timeIncrease;
-    [SerializeField] private float _secondsBetweenSpawn;
-    [SerializeField] private float _minSecondsBetweenSpawn;
-    [SerializeField] private float _increaseSpeed;
-    [SerializeField] private float _maxIncreaseSpeed;
+    [SerializeField] private float _startSecondsBetweenSpawn;
+    [SerializeField] private float _endSecondsBetweenSpawn;
+    [SerializeField] private float _startIncreaseSpeed; 
+    [SerializeField] private float _endIncreaseSpeed;
+
+    private float _secondsBetweenSpawn;
+    private float _increaseSpeed;
 
     private float _elapsedTime = 0;
 
     private void Start()
     {
+        SpeedReset();
         Initialize(_enemys);
     }
 
     private void Update()
     {
         if (_player.Lose)
+        {
+            SpeedReset();
             return;
+        }
 
         if (_entry.IsGame)
         {
-            _increaseSpeed = Multiplier(_increaseSpeed, _maxIncreaseSpeed);
-            _secondsBetweenSpawn = Multiplier(_secondsBetweenSpawn, _minSecondsBetweenSpawn);
+            _increaseSpeed += Multiplier(_startIncreaseSpeed, _endIncreaseSpeed);
+            _secondsBetweenSpawn += Multiplier(_startSecondsBetweenSpawn, _endSecondsBetweenSpawn);
 
             _elapsedTime += Time.deltaTime;
 
@@ -51,18 +57,20 @@ public class Spawner : ObjectPool
         }
     }
 
+    private void SpeedReset()
+    {
+        _secondsBetweenSpawn = _startSecondsBetweenSpawn;
+        _increaseSpeed = _startIncreaseSpeed;
+    }
+
     private float GetRandomPosition() =>
         Random.Range(_leftEght.position.x,
                      _rightEght.position.x);
 
-    private float Multiplier(float current, float target)
+    private float Multiplier(float start, float end)
     {
-        float residualPath = target - current;
+        float residualPath = end - start;
 
-        if (current != target)
-            current = (residualPath / _timeIncrease) * Time.deltaTime;
-        //current = Mathf.MoveTowards(current, target, l);
-
-        return current;
+        return residualPath / _timeIncrease * Time.deltaTime;
     }
 }
