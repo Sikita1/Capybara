@@ -20,9 +20,6 @@ public class Enemy : MonoBehaviour
     private void OnEnable()
     {
         _randomAudio.clip = GetRundomAudio();
-
-        //if (_musicController.IsOnMusic)
-            _randomAudio.Play();
     }
 
     private void OnDisable()
@@ -38,6 +35,12 @@ public class Enemy : MonoBehaviour
         }
 
         Die();
+    }
+
+    public void OnPlayMusic(bool isOnMusic)
+    {
+        if (isOnMusic)
+            _randomAudio.Play();
     }
 
     public void Enable()

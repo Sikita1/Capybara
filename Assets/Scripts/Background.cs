@@ -6,6 +6,7 @@ public class Background : MonoBehaviour
 {
     [SerializeField] private Sprite[] _images;
     [SerializeField] private Image _image;
+    [SerializeField] private Image _imageFon;
 
     private Animator _animator;
 
@@ -18,6 +19,7 @@ public class Background : MonoBehaviour
     {
         GetRundomNumber();
         SetRandomImage();
+        _imageFon.sprite = _image.sprite;
     }
 
     public void OnMenu() => _animator.SetTrigger("StateMenu");
@@ -27,5 +29,8 @@ public class Background : MonoBehaviour
 
     private int GetRundomNumber() => Random.Range(0, _images.Length);
 
-    private void SetRandomImage() => _image.sprite = _images[GetRundomNumber()];
+    private void SetRandomImage()
+    {
+        _image.sprite = _images[GetRundomNumber()];
+    }
 }

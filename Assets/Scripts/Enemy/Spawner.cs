@@ -17,6 +17,8 @@ public class Spawner : ObjectPool
     [SerializeField] private float _startIncreaseSpeed; 
     [SerializeField] private float _endIncreaseSpeed;
 
+    [SerializeField] private MusicController _musicController;
+
     private float _secondsBetweenSpawn;
     private float _increaseSpeed;
 
@@ -53,6 +55,7 @@ public class Spawner : ObjectPool
                                                 _leftEght.position.y,
                                                 _leftEght.position.z));
                 enemy.SetSpeedMultiplier(_increaseSpeed);
+                enemy.OnPlayMusic(_musicController.IsOnMusic);
             }
         }
     }

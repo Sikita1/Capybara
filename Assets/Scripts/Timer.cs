@@ -27,7 +27,7 @@ public class Timer : MonoBehaviour
             else
                 StopScore?.Invoke(GetCurrentScore());
 
-            _display.text = Mathf.Round(_time).ToString();
+            _display.text = GetCurrentScore().ToString();
         }
     }
 
