@@ -1499,7 +1499,7 @@ MonoBehaviour:
   _rightEght: {fileID: 188276829}
   _player: {fileID: 437154335}
   _entry: {fileID: 31616436}
-  _timeIncrease: 180
+  _timeIncrease: 220
   _startSecondsBetweenSpawn: 2
   _endSecondsBetweenSpawn: 0.3
   _startIncreaseSpeed: 1

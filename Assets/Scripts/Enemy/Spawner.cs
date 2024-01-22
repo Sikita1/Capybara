@@ -14,7 +14,7 @@ public class Spawner : ObjectPool
     [SerializeField] private float _timeIncrease;
     [SerializeField] private float _startSecondsBetweenSpawn;
     [SerializeField] private float _endSecondsBetweenSpawn;
-    [SerializeField] private float _startIncreaseSpeed; 
+    [SerializeField] private float _startIncreaseSpeed;
     [SerializeField] private float _endIncreaseSpeed;
 
     [SerializeField] private MusicController _musicController;
@@ -40,8 +40,11 @@ public class Spawner : ObjectPool
 
         if (_entry.IsGame)
         {
-            _increaseSpeed += Multiplier(_startIncreaseSpeed, _endIncreaseSpeed);
-            _secondsBetweenSpawn += Multiplier(_startSecondsBetweenSpawn, _endSecondsBetweenSpawn);
+            if (_increaseSpeed <= _endIncreaseSpeed)
+                _increaseSpeed += Multiplier(_startIncreaseSpeed, _endIncreaseSpeed);
+
+            if (_secondsBetweenSpawn >= _endSecondsBetweenSpawn)
+                _secondsBetweenSpawn += Multiplier(_startSecondsBetweenSpawn, _endSecondsBetweenSpawn);
 
             _elapsedTime += Time.deltaTime;
 
@@ -58,6 +61,9 @@ public class Spawner : ObjectPool
                 enemy.OnPlayMusic(_musicController.IsOnMusic);
             }
         }
+
+        Debug.Log(_increaseSpeed);
+        Debug.Log(_secondsBetweenSpawn);
     }
 
     private void SpeedReset()

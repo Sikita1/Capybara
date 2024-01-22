@@ -34,6 +34,12 @@ public class Controller : MonoBehaviour
         AudioPlay();
     }
 
+    private void Update()
+    {
+        //Debug.Log($"buttonStart {_buttonStart.GetActivButton()}");
+        //Debug.Log($"buttonMenu {_buttonMenu.GetActivButton()}");
+    }
+
     private void OnEnable()
     {
         _musicController.SwitchOn += AudioPlay;
@@ -51,28 +57,34 @@ public class Controller : MonoBehaviour
 
     public void OnButtonStartClick()
     {
-        StartGame();
-        _buttonStart.OnStartOff();
-        _background.GameChange();
-        _player.PlayerReady();
-        _camera.OnGamePl();
-        _particle.Stop();
-        AudioStop();
+        if (_buttonStart.IsIdleButton)
+        {
+            StartGame();
+            _buttonStart.OnStartOff();
+            _background.GameChange();
+            _player.PlayerReady();
+            _camera.OnGamePl();
+            _particle.Stop();
+            AudioStop();
+        }
     }
 
     public void OnButtonMenuClick()
     {
-        StopGame();
-        _buttonMenu.OnStartOff();
-        _background.MenuNavigation();
-        _camera.OnMenuPl();
-        _player.StopDance();
-        _player.PlayerWaiting();
-        _buttonStart.OnStartOn();
-        _timer.ResetTime();
-        _score.ShowCurrentScore();
-        _particle.Play();
-        AudioPlay();
+        if (_buttonMenu.IsIdleButton)
+        {
+            StopGame();
+            _buttonMenu.OnStartOff();
+            _background.MenuNavigation();
+            _camera.OnMenuPl();
+            _player.StopDance();
+            _player.PlayerWaiting();
+            _buttonStart.OnStartOn();
+            _timer.ResetTime();
+            _score.ShowCurrentScore();
+            _particle.Play();
+            AudioPlay();
+        }
     }
 
     private void AudioPlay()
