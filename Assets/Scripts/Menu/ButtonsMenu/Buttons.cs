@@ -4,6 +4,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class Buttons : MonoBehaviour
 {
+    private const string Idle = "Idle";
+    private const string StartOn = "StartOn";
+    private const string StartOff = "StartOff";
+    private const string Hidden = "Hidden";
+
     [SerializeField] private Button _button;
 
     private Animator _animator;
@@ -22,16 +27,16 @@ public class Buttons : MonoBehaviour
         IsIdleButton = false;
 
     public void OnIdle() =>
-        EnableStatus("Idle", "StartOn", "StartOff", "Hidden");
+        EnableStatus(Idle, StartOn, StartOff, Hidden);
 
     public void OnHidden() =>
-        EnableStatus("Hidden", "Idle", "StartOn", "StartOff");
+        EnableStatus(Hidden, Idle, StartOn, StartOff);
 
     public void OnStartOn() =>
-        EnableStatus("StartOn", "Idle", "StartOff", "Hidden");
+        EnableStatus(StartOn, Idle, StartOff, Hidden);
 
     public void OnStartOff() =>
-        EnableStatus("StartOff", "Idle", "StartOn", "Hidden");
+        EnableStatus(StartOff, Idle, StartOn, Hidden);
 
     private void EnableStatus(string enbled, string dis1, string dis2, string dis3)
     {

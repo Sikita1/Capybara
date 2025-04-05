@@ -61,9 +61,6 @@ public class Spawner : ObjectPool
                 enemy.OnPlayMusic(_musicController.IsOnMusic);
             }
         }
-
-        Debug.Log(_increaseSpeed);
-        Debug.Log(_secondsBetweenSpawn);
     }
 
     private void SpeedReset()

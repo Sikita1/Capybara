@@ -4,11 +4,14 @@ using YG;
 
 public class Score : MonoBehaviour
 {
+    private const string ValueSave = "valueSave";
+    private const string BestCapybars = "BestCapybars";
+
     [SerializeField] private Timer _timer;
 
     [SerializeField] private TMP_Text _textScore;
 
-    private const string _saveKey = "valueSave";
+    private const string _saveKey = ValueSave;
 
     private int _maxScore;
 
@@ -39,7 +42,7 @@ public class Score : MonoBehaviour
         {
             _maxScore = maxScore;
             Save();
-            YandexGame.NewLeaderboardScores("BestCapybars", _maxScore);
+            YandexGame.NewLeaderboardScores(BestCapybars, _maxScore);
         }
     }
 

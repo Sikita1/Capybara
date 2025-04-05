@@ -1,4 +1,5 @@
 using UnityEngine;
+using YG;
 
 [RequireComponent(typeof(AudioSource))]
 public class Controller : MonoBehaviour
@@ -34,12 +35,6 @@ public class Controller : MonoBehaviour
         AudioPlay();
     }
 
-    private void Update()
-    {
-        //Debug.Log($"buttonStart {_buttonStart.GetActivButton()}");
-        //Debug.Log($"buttonMenu {_buttonMenu.GetActivButton()}");
-    }
-
     private void OnEnable()
     {
         _musicController.SwitchOn += AudioPlay;
@@ -73,6 +68,8 @@ public class Controller : MonoBehaviour
     {
         if (_buttonMenu.IsIdleButton)
         {
+            YandexGame.FullscreenShow();
+
             StopGame();
             _buttonMenu.OnStartOff();
             _background.MenuNavigation();

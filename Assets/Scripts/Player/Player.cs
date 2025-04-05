@@ -4,7 +4,13 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 public class Player : MonoBehaviour
 {
+    private const string Idle = "Idle";
+    private const string Dance = "Dance";
+    private const string Expectation = "Expectation";
+    private const string Run = "Run";
+
     [SerializeField] private CatWin _cat;
+    [SerializeField] private CatWin _cat2;
 
     [SerializeField] private Buttons _buttonMenu;
 
@@ -29,6 +35,7 @@ public class Player : MonoBehaviour
     private void Start()
     {
         _cat.gameObject.SetActive(false);
+        _cat2.gameObject.SetActive(false);
     }
 
     public void Alive()
@@ -50,20 +57,21 @@ public class Player : MonoBehaviour
     public void PlayerReady()
     {
         Alive();
-        Idle();
+        Inactivity();
         AudioPlay(_audioGame);
     }
 
     public void PlayerWaiting()
     {
-        _animation.SetBool("Idle", false);
+        _animation.SetBool(Idle, false);
     }
 
     public void StopDance()
     {
-        _animation.SetBool("Dance", false);
-        _animation.SetBool("Expectation", true);
+        _animation.SetBool(Dance, false);
+        _animation.SetBool(Expectation, true);
         _cat.gameObject.SetActive(false);
+        _cat2.gameObject.SetActive(false);
         transform.position = new Vector3(_positionRelax,
                                          transform.position.y,
                                          transform.position.z);
@@ -76,51 +84,46 @@ public class Player : MonoBehaviour
     public void Defeated()
     {
         Dead();
-        Dance();
+        StartDancing();
         _buttonMenu.OnStartOn();
         AudioStop(_audioGame);
     }
 
-    public void Run()
+    public void StartRunning()
     {
         PlayerWaiting();
-        _animation.SetBool("Run", true);
+        _animation.SetBool(Run, true);
     }
 
-    public void Idle()
+    public void Inactivity()
     {
-        _animation.SetBool("Idle", true);
-        _animation.SetBool("Run", false);
+        _animation.SetBool(Idle, true);
+        _animation.SetBool(Run, false);
     }
 
-    private void Dance()
+    private void StartDancing()
     {
-        DanceCat();
+        DanceCats();
         PlayerWaiting();
-        _animation.SetBool("Dance", true);
+        _animation.SetBool(Dance, true);
+
+        transform.position = new Vector3(0,
+                                         transform.position.y,
+                                         transform.position.z);
+
         AudioPlay(_audioWin);
     }
 
-    private void DanceCat()
+    private void DanceCats()
     {
-        float zoneCat = 1.5f;
-        float Left = -1.5f;
-        float catPositionY = -2.86f;
-
-        if (transform.position.x >= 1.1f)
-            zoneCat = Left;
-
-        _cat.transform.position = new Vector3(transform.position.x + zoneCat,
-                                              catPositionY,
-                                              transform.position.z);
-
         _cat.gameObject.SetActive(true);
+        _cat2.gameObject.SetActive(true);
     }
 
     private void AudioPlay(AudioSource audio)
     {
         if(_musicController.IsOnMusic)
-        audio.Play();
+            audio.Play();
     }
 
     private void AudioStop(AudioSource audio) =>

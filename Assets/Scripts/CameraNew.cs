@@ -1,21 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraNew : MonoBehaviour
 {
-    private float _aspectRatio = 1080 / 1920/*(float)Screen.width / (float)Screen.height*/;
+    private int _width = 1080;
+    private int _height = 1920;
+
+    private float _aspectRatio => _width / _height;
     private float _targetAspectRatio;
 
     private void Awake()
     {
-        Screen.SetResolution(1080, 1920,/*Screen.width, Screen.height,*/ true);
+        Screen.SetResolution(_width, _height, true);
     }
 
     private void Start()
     {
-        _targetAspectRatio = _aspectRatio; // используйте соотношение сторон, определенное в первом шаге
-        float currentAspectRatio = 1080 / 1920/*(float)Screen.width / (float)Screen.height*/;
+        _targetAspectRatio = _aspectRatio;
+        float currentAspectRatio = _width / _height;
 
         float scaleFactor = currentAspectRatio / _targetAspectRatio;
 
@@ -23,7 +24,7 @@ public class CameraNew : MonoBehaviour
     }
     private void Update()
     {
-        float currentAspectRatio = 1080 / 1920/*(float)Screen.width / (float)Screen.height*/;
+        float currentAspectRatio = _width / _height;
 
         float scaleFactor = currentAspectRatio / _targetAspectRatio;
 

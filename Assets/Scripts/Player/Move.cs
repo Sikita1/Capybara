@@ -32,7 +32,7 @@ public class Move : MonoBehaviour
 
     private void OnMouseUpAsButton()
     {
-        _player.Idle();
+        _player.Inactivity();
     }
 
     private void Turn(Vector3 mousePosition)
@@ -41,7 +41,7 @@ public class Move : MonoBehaviour
         float epsilon = 0.01f;
 
         if (Mathf.Abs(delta) < epsilon)
-            _player.Idle();
+            _player.Inactivity();
 
         if (delta >= epsilon)
             Turn(0);
@@ -53,6 +53,6 @@ public class Move : MonoBehaviour
     private void Turn(int degrees)
     {
         _player.transform.rotation = Quaternion.Euler(0, degrees, 0);
-        _player.Run();
+        _player.StartRunning();
     }
 }

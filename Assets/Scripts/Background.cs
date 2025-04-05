@@ -4,6 +4,11 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Animator))]
 public class Background : MonoBehaviour
 {
+    private const string StateMenu = "StateMenu";
+    private const string Game = "Game";
+    private const string StateGame = "StateGame";
+    private const string Menu = "Menu";
+
     [SerializeField] private Sprite[] _images;
     [SerializeField] private Image _image;
     [SerializeField] private Image _imageFon;
@@ -22,10 +27,10 @@ public class Background : MonoBehaviour
         _imageFon.sprite = _image.sprite;
     }
 
-    public void OnMenu() => _animator.SetTrigger("StateMenu");
-    public void GameChange() => _animator.SetTrigger("Game");
-    public void InPlay() => _animator.SetTrigger("StateGame");
-    public void MenuNavigation() => _animator.SetTrigger("Menu");
+    public void OnMenu() => _animator.SetTrigger(StateMenu);
+    public void GameChange() => _animator.SetTrigger(Game);
+    public void InPlay() => _animator.SetTrigger(StateGame);
+    public void MenuNavigation() => _animator.SetTrigger(Menu);
 
     private int GetRundomNumber() => Random.Range(0, _images.Length);
 
