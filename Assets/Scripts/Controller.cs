@@ -68,7 +68,7 @@ public class Controller : MonoBehaviour
     {
         if (_buttonMenu.IsIdleButton)
         {
-            YandexGame.FullscreenShow();
+            YG2.InterstitialAdvShow();
 
             StopGame();
             _buttonMenu.OnStartOff();

@@ -42,7 +42,7 @@ public class Score : MonoBehaviour
         {
             _maxScore = maxScore;
             Save();
-            YandexGame.NewLeaderboardScores(BestCapybars, _maxScore);
+            YG2.SetLeaderboard(BestCapybars, _maxScore);
         }
     }
 
